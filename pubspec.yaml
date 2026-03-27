@@ -1,0 +1,61 @@
+name: my_medicine_box
+description: 家庭药品管理应用
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # UI组件
+  cupertino_icons: ^1.0.2
+  flutter_svg: ^2.0.9
+  cached_network_image: ^3.3.0
+
+  # 数据库
+  sqflite: ^2.3.0
+  path_provider: ^2.1.1
+  path: ^1.8.3
+
+  # 状态管理
+  provider: ^6.1.1
+
+  # 相机和图片
+  camera: ^0.12.0+1
+  image_picker: ^1.0.5
+  permission_handler: ^12.0.1
+
+  # OCR识别
+  google_mlkit_text_recognition: ^0.15.1
+
+  # 日期时间
+  intl: ^0.20.2
+
+  # 本地通知
+  flutter_local_notifications: ^21.0.0
+
+  # 其他工具
+  shared_preferences: ^2.2.2
+  url_launcher: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  # fonts:
+  #   - family: MyFont
+  #     fonts:
+  #       - asset: fonts/MyFont-Regular.ttf
+  #       - asset: fonts/MyFont-Bold.ttf
+  #         weight: 700

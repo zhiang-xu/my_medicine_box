@@ -1,0 +1,32 @@
+allprojects {
+    repositories {
+        // 阿里云镜像
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+
+        // 腾讯云镜像
+        maven { url 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public/' }
+
+        // 官方源（作为后备）
+        google()
+        mavenCentral()
+    }
+}
+
+settingsEvaluated { settings ->
+    settings.pluginManagement {
+        repositories {
+            // 阿里云镜像
+            maven { url 'https://maven.aliyun.com/repository/google' }
+            maven { url 'https://maven.aliyun.com/repository/public' }
+            maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+
+            // 官方源（作为后备）
+            gradlePluginPortal()
+            google()
+            mavenCentral()
+        }
+    }
+}
