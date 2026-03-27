@@ -14,7 +14,7 @@ git add .
 
 echo.
 echo [Step 3] Committing changes...
-git commit -m "Fix: Update Gradle and AGP versions"
+git commit -m "Fix: Migrate to declarative Gradle plugins for Flutter 3.41"
 
 echo.
 echo [Step 4] Pushing to GitHub...
