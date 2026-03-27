@@ -12,7 +12,7 @@ git add .
 
 echo.
 echo [Step 2] Committing changes...
-git commit -m "Fix: Update actions/upload-artifact to v4"
+git commit -m "Fix: Update Flutter to 3.24.5 and upload-artifact to v4"
 
 echo.
 echo [Step 3] Pushing to GitHub...

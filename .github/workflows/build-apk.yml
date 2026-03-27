@@ -16,7 +16,7 @@ jobs:
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.19.6'
+        flutter-version: '3.24.5'
         channel: 'stable'
         cache: true
 
@@ -32,3 +32,4 @@ jobs:
         name: app-debug
         path: build/app/outputs/flutter-apk/app-debug.apk
         retention-days: 30
+        compression-level: 9
