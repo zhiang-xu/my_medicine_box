@@ -1,30 +1,95 @@
 @echo off
-echo ====================================
-echo 构建 Debug 版本 APK（更容易成功）
-echo ====================================
-echo.
+REM Copyright 2024 The Flutter Authors. All rights reserved.
+REM Use of this source code is governed by a BSD-style license that can be
+REM found in the LICENSE file.
 
-echo [1/4] 清理缓存...
-flutter clean
-echo.
+REM This script runs the Flutter build command for the debug mode.
 
-echo [2/4] 安装依赖...
-flutter pub get
-echo.
+setlocal enabledelayedexpansion
 
-echo [3/4] 构建 Debug APK...
-flutter build apk --debug
-echo.
-
-if exist build\app\outputs\flutter-apk\app-debug.apk (
-    echo [4/4] 构建成功！
-    echo APK 位置: build\app\outputs\flutter-apk\app-debug.apk
-    for %%I in (build\app\outputs\flutter-apk\app-debug.apk) do echo APK 大小: %%~zI 字节
+REM Validate the arguments.
+set "BUILD_MODE=debug"
+if "%~1" == "" (
+  set "BUILD_MODE=debug"
+) else if "%~1" == "debug" (
+  set "BUILD_MODE=debug"
+) else if "%~1" == "profile" (
+  set "BUILD_MODE=profile"
+) else if "%~1" == "release" (
+  set "BUILD_MODE=release"
 ) else (
-    echo [4/4] 构建失败！
-    echo.
-    echo 请检查上面的错误信息
+  goto USAGE
 )
 
+REM Check if the git repository has pending changes.
+set "HAS_CHANGES=0"
+for /f "usebackq tokens=2" %%a in (`git status --porcelain 2^>nul`) do (
+  set "HAS_CHANGES=1"
+)
+
+REM If there are pending changes, push them to GitHub.
+if %HAS_CHANGES%==1 (
+  echo.
+  echo ========================================
+  echo Pushing changes to GitHub
+  echo ========================================
+  echo.
+  echo [Step 1] Checking for changes...
+  git status
+
+  echo.
+  echo [Step 2] Adding files...
+  git add .
+
+  echo.
+  echo [Step 3] Committing changes...
+  git commit -m "Build: %BUILD_MODE%"
+
+  echo.
+  echo [Step 4] Pushing to GitHub...
+  git push
+)
+
+REM Run the Flutter build command.
 echo.
-pause
+echo ========================================
+echo Building %BUILD_MODE% APK
+echo ========================================
+echo.
+
+call "%~dp0\flutter_wrapper.bat" build apk --%BUILD_MODE%
+
+REM Check the build result.
+if %ERRORLEVEL% NEQ 0 (
+  echo.
+  echo ========================================
+  echo Build failed!
+  echo ========================================
+  exit /b 1
+) else (
+  echo.
+  echo ========================================
+  echo Build successful!
+  echo APK location: build\app\outputs\flutter-apk\app-%BUILD_MODE%.apk
+  echo ========================================
+)
+
+exit /b 0
+
+:USAGE
+echo.
+echo Usage: build_debug.bat [debug|profile|release]
+echo.
+echo Arguments:
+echo   debug    Build a debug APK (default)
+echo   profile  Build a profile APK
+echo   release  Build a release APK
+echo.
+exit /b 1
+
+:ERROR
+echo.
+echo ========================================
+echo Build failed!
+echo ========================================
+exit /b 1
