@@ -12,7 +12,7 @@ git add .
 
 echo.
 echo [Step 2] Committing changes...
-git commit -m "Fix: Update Flutter to 3.27.5 for dart 3.8 support"
+git commit -m "Fix: Use latest stable Flutter version"
 
 echo.
 echo [Step 3] Pushing to GitHub...
