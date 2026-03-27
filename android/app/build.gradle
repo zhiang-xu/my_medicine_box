@@ -1,0 +1,45 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id "dev.flutter.flutter-gradle-plugin" version "1.0.0"
+}
+android/app/build.gradle:
+
+plugins {
+    id "com.android.application" version "8.7.3"
+    id "org.jetbrains.kotlin.android" version "2.1.0"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace "com.example.my_medicine_box"
+    compileSdk 34
+    ndkVersion flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    defaultConfig {
+        applicationId "com.example.my_medicine_box"
+        minSdkVersion flutter.minSdkVersion
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+flutter {
+    source '../..'
+}
